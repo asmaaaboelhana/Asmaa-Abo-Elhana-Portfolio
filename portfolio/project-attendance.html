@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance System — Enterprise Face Recognition Platform | Asmaa Abo Elhana</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="brand">Asmaa Abo Elhana<small>AEC Software Engineer</small></a>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="wrap section-tight" style="padding-top:56px;">
+  
+  <h1 style="font-size:clamp(2rem,4.6vw,3.6rem);">Attendance<br>System</h1>
+  <p class="lede" style="margin-top:14px; font-size:1.05rem;">An enterprise face-recognition platform for
+  educational institutions — contactless, session-based attendance built on ASP.NET Core MVC.</p>
+  <div class="tag-row" style="margin-top:26px;">
+    <span class="tag">ASP.NET Core MVC 8</span><span class="tag">EF Core 8</span>
+    <span class="tag">SQL Server</span><span class="tag">DlibDotNet</span>
+    <span class="tag">FaceRecognitionDotNet</span><span class="tag">Bootstrap 5.3</span>
+  </div>
+</header>
+
+<section class="wrap section reveal">
+  <hr class="rule">
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/attendance-live-session.png" alt="Live attendance session for CS01 Programming-I, showing the auto-detection camera oval, session statistics, and a recent check-in matched at 61% confidence, marked Late." loading="lazy">
+      <div class="shot-caption"><span>Live Attendance — Session View</span><span>Auto-detection, 75% threshold</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Architecture</div>
+      <h3>A layered MVC platform</h3>
+      <p>Built on the repository pattern with dependency injection: Controllers and Razor Views sit on
+      a business logic layer of typed repositories (Student, Course, Attendance, Enrollment, Report,
+      FaceReco), which sit on an EF Core / <span class="serif-em">IdentityDbContext</span> data layer over
+      SQL Server. Each concern — recognition, enrollment, reporting — has its own interface and repository,
+      so the recognition engine can change without touching attendance logic.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Roles</div>
+      <h3>Three roles, one system</h3>
+      <p>Admin, Instructor, and Student each see a different slice of the platform. Admins manage users,
+      courses, and every report; instructors run live sessions and see their own course data; students
+      register with a profile photo, self-enroll in courses, and mark their own attendance by face.
+      ASP.NET Core Identity with claims-based authorization and
+      <span class="serif-em">[Authorize(Roles = "...")]</span> guards every sensitive endpoint.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/attendance-register.png" alt="Register New Student form with fields for name, email, phone, password, gender, date of birth, department, class, and address, plus a photo upload or camera capture for face recognition." loading="lazy">
+      <div class="shot-caption"><span>Student Registration</span><span>Photo captured for recognition</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/attendance-student-dashboard.png" alt="Student dashboard showing 100% attendance rate, 2 enrolled courses, and recent attendance activity with check-in times." loading="lazy">
+      <div class="shot-caption"><span>Student Dashboard</span><span>Self-service view</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Recognition Pipeline</div>
+      <h3>From photo to encoding</h3>
+      <p>At registration, the uploaded (or captured) profile photo is passed through
+      <span class="serif-em">ExtractFaceEncodingAsync()</span>, which computes a perceptual-hash-style
+      byte-array encoding and stores it against the student in a dedicated <span class="serif-em">FaceEncoding</span>
+      table — decoupled from the profile record so encodings can be regenerated independently.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Matching</div>
+      <h3>Mean squared error, thresholded</h3>
+      <p>During a live session, a webcam frame is captured as base64, sanitized, and encoded the same way.
+      That encoding is compared against every active student's stored encoding using mean squared error;
+      the closest match is converted to a confidence score and accepted at a
+      <span class="serif-em">75% threshold</span> — visible to the user right on the capture screen, so
+      it's clear why a low-confidence match gets rejected instead of silently marked present.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Enrollment</div>
+      <h3>Students pick their own courses</h3>
+      <p>Course Enrollment lists everything a student is signed up for — code, credits, enrollment date —
+      with a single <span class="serif-em">Enroll in New</span> action to browse and join more. Sessions
+      only run for courses a student is actually enrolled in, so recognition and rostering stay consistent.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Personal Reporting</div>
+      <h3>A report a student can trust</h3>
+      <p>The Student Attendance Report filters by course and date range and returns present, absent, late
+      counts and an overall attendance rate — the same numbers instructors and admins see, just scoped to
+      one person, so there's no ambiguity about what "100%" means.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/attendance-enrollment.png" alt="My Enrolled Courses page listing Programming-I and Web Development with credits and enrollment date, and an Enroll in New button." loading="lazy">
+      <div class="shot-caption"><span>Course Enrollment</span><span>Self-enrollment</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/attendance-student-report.png" alt="Student Attendance Report with course and date range filters, showing total days, present, absent, late counts, and a 100% attendance rate bar." loading="lazy">
+      <div class="shot-caption"><span>Student Attendance Report</span><span>Filtered by course &amp; date</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Sessions</div>
+      <h3>Attendance is a session, not a snapshot</h3>
+      <p>Instructors open an <span class="serif-em">AttendanceSession</span> for a course; every recognized
+      face during that window logs a check-in time against it, with an automatic late flag after a
+      15-minute grace period. Closing the session locks the record — attendance becomes a real event
+      with a start and end, not just a timestamped list.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Admin Reach</div>
+      <h3>One profile, the full picture</h3>
+      <p>Opening a student from the admin side surfaces everything at once — enrolled courses with
+      instructor and schedule, recent attendance with check-in method, and direct actions to edit the
+      profile or mark attendance manually when the camera isn't the right tool for the moment.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/attendance-student-profile.png" alt="Admin view of a student profile showing enrolled courses with instructor and schedule, recent attendance with check-in time, status, and method, and Edit Profile and Mark Attendance buttons." loading="lazy">
+      <div class="shot-caption"><span>Student Profile (Admin View)</span><span>Courses &amp; attendance in one place</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/attendance-edit-profile.png" alt="Edit Student Profile form with first name, last name, department, active toggle, class, email, and password reset fields." loading="lazy">
+      <div class="shot-caption"><span>Edit Student Profile</span><span>Active toggle, password reset</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Course &amp; Student Management</div>
+      <h3>The admin side of the platform</h3>
+      <p>Admins run full CRUD on students and courses — search by name, ID, or email; filter by department;
+      edit, deactivate, or remove records — with each course carrying an instructor, department, credits,
+      and active status.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Reporting &amp; Audit</div>
+      <h3>Numbers people actually asked for</h3>
+      <p>Course-level monthly trends and day-wise summaries sit alongside the student report, each with
+      its own screen. Every meaningful action — logins, edits, deletions — writes to an
+      <span class="serif-em">AuditLog</span> with user, action, and IP address, so the system stays answerable.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/attendance-student-management.png" alt="Student management table listing students with photo, student ID, name, department, class, status, and registration date, with a search bar and row actions." loading="lazy">
+      <div class="shot-caption"><span>Student Management</span><span>Search, edit, deactivate</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/attendance-courses.png" alt="Courses table listing course name, instructor, department, credits, and status, with an Add Course button and row actions." loading="lazy">
+      <div class="shot-caption"><span>Course Management</span><span>Catalog &amp; enrollment</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Security &amp; Reliability</div>
+      <h3>Built to be trusted</h3>
+      <p>Role-based authorization guards every sensitive controller action, anti-forgery tokens sit on all
+      POST requests, and base64 image data is sanitized and padding-corrected before decoding — ahead of
+      any recognition work.</p>
+    </div>
+    <div>
+      <div class="eyebrow">System View</div>
+      <h3>What the admin sees at a glance</h3>
+      <p>The administrative dashboard totals students and courses, computes overall attendance, and breaks
+      performance down by department — Computer Science, Graphics &amp; Animation, Engineering — so a
+      shortfall in one department doesn't hide inside a system-wide average.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/attendance-admin-dashboard.png" alt="Administrative dashboard showing total students, total courses, overall attendance, and departmental performance breakdowns for Computer Science, Graphics and Animation, and Engineering." loading="lazy">
+      <div class="shot-caption"><span>Admin Dashboard</span><span>Department breakdown</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/attendance-reports.png" alt="Reports screen with three report types: Student Attendance Report, Course Attendance Report, and Daily Attendance Report, each with a View Report button." loading="lazy">
+      <div class="shot-caption"><span>Reports</span><span>Student · Course · Daily</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div style="padding-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+    <a href="project-twinz.html" class="sheet-link">← Twinz</a>
+    <a href="project-buildcalc.html" class="sheet-link">Next: BuildCalc →</a>
+  </div>
+</section>
+
+<div class="title-block">
+  <div class="title-block-inner">
+    <div>Project<span>Attendance System</span></div>
+    <div>Discipline<span>Identity / Computer Vision</span></div>
+    <div>Stack<span>ASP.NET Core MVC · EF Core · SQL Server</span></div>
+    
+  </div>
+</div>
+<footer class="site-footer">
+  <span>© 2026 Asmaa Abo Elhana</span>
+  <span>asmaaaboelhana2@gmail.com</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

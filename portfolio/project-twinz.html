@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Twinz — BIM Digital Twin &amp; CAFM Platform | Asmaa Abo Elhana</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="brand">Asmaa Abo Elhana<small>AEC Software Engineer</small></a>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="wrap section-tight" style="padding-top:56px;">
+  <div class="eyebrow">ITI Graduation Project</div>
+  <h1 style="font-size:clamp(2.2rem,5vw,4rem);">Twinz</h1>
+  <p class="lede" style="margin-top:14px; font-size:1.1rem;">A BIM digital-twin and facility-management
+  platform — the graduation project that turns an IFC model into a living, operational building.</p>
+  <div class="tag-row" style="margin-top:26px;">
+    <span class="tag">ASP.NET Core 8</span><span class="tag">Blazor Server</span>
+    <span class="tag">EF Core 8</span><span class="tag">SQL Server</span>
+    <span class="tag">SignalR</span><span class="tag">TypeScript</span>
+    <span class="tag">web-ifc (WASM)</span><span class="tag">That Open Engine / Three.js</span>
+  </div>
+  <p style="margin-top:22px; font-size:0.93rem; color:var(--ink-soft); max-width:60ch;">
+    Built by a six-person team at ITI's AEC Informatics program, supervised by Dr. Ahmed Mohy, for
+    project owner FM Group. This sheet documents the system as a whole and my part in delivering it.
+  </p>
+</header>
+
+<section class="wrap section reveal">
+  <hr class="rule">
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-poster.jpg" alt="Twinz CAFM project poster showing the BIM digital twin building model, admin dashboard, BIM viewer with MEP systems, element inspector with COBie properties, and IoT hardware breadboard prototype." loading="lazy" style="max-height:640px; width:auto; margin:0 auto; display:block;">
+      <div class="shot-caption"><span>Twinz CAFM — Project Poster</span><span>ITI / AECI capstone</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section reveal">
+  <div class="grid-2">
+    <div>
+      <div class="eyebrow">The Problem</div>
+      <h3>BIM handover shouldn't be a dead end</h3>
+      <p>Facility information usually splits across BIM files, spreadsheets, maintenance logs, and
+      people's memory the moment a building is handed over. Twinz keeps the IFC model alive: it extracts
+      its spatial and semantic data, stores it in a proper CAFM database, and renders the geometry as an
+      interactive 3D twin — so the model that was used to design the building becomes the model used to
+      run it.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Architecture</div>
+      <h3>A browser-side extraction pipeline</h3>
+      <p>A TypeScript client parses IFC files in-browser via <span class="serif-em">web-ifc</span>
+      (WebAssembly), classifies spatial structure, systems, and asset candidates, and packages the result
+      as fragment geometry plus a CAFM seed. That package uploads to secured ASP.NET Core endpoints, which
+      validate, stage, and transactionally import it through EF Core into SQL Server — with SignalR pushing
+      live progress back to the browser.</p>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-revit-source.jpg" alt="Autodesk Revit 2024 showing a 3D plumbing view of the ITI Digital Twin Mechanical model, with visible ductwork, pipes, and MEP systems color-coded by discipline." loading="lazy">
+      <div class="shot-caption"><span>Source Model — Revit MEP</span><span>Multidisciplinary BIM federation</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">The Building</div>
+      <h3>A real, detailed model behind the data</h3>
+      <p>The underlying model isn't a simple box — it's a federated, multidisciplinary Revit model with
+      architecture, structure, and MEP systems (visible above in the plumbing discipline view), the kind
+      of dense geometry that makes IFC extraction and browser performance genuinely hard problems, not
+      just plumbing for a demo.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Identity Design</div>
+      <h3>Three identities, one building</h3>
+      <p>Twinz deliberately separates <span class="serif-em">IFC GlobalId</span> (persistent identity across
+      re-imports), <span class="serif-em">Express ID</span> (fast lookup within one viewer session), and
+      database keys (relational identity for CAFM records) — so a re-exported model doesn't silently break
+      every link the operations team has built on top of it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section reveal">
+  <hr class="rule" style="margin-top:44px;">
+  <div class="eyebrow" style="margin-top:44px;">Onboarding &amp; Access</div>
+  <h2 style="margin-top:8px;">A building-bound security chain</h2>
+  <p class="lede" style="margin-top:14px;">Every user, request, and permission traces back to the building
+  code established at IFC import — so "which building does this belong to" is never ambiguous.</p>
+
+  <div class="shot-pair" style="margin-top:32px;">
+    <div class="shot">
+      <img src="assets/twinz-landing.png" alt="Twinz landing page with the tagline Unifying Spatial Models with Real-Time Operational Intelligence, and buttons to enter the application portal or register as facility manager." loading="lazy">
+      <div class="shot-caption"><span>Landing Page</span><span>Two entry paths</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/twinz-team-access.png" alt="Team and Access Management page showing a building-bound team onboarding link locked to facility code ITI-001, and a pending access requests panel." loading="lazy">
+      <div class="shot-caption"><span>Team Onboarding Link</span><span>Locked to facility code ITI-001</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Two-Path Registration</div>
+      <h3>Admin and team members enter differently</h3>
+      <p>A Facility Manager registers directly and uploads the IFC model, which establishes the building's
+      code. Every other role registers through a link that carries and locks that code — so the request is
+      building-scoped before it's even submitted, and an admin can only approve requests inside their own
+      building.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Controlled Onboarding</div>
+      <h3>Approve, assign, force a password reset</h3>
+      <p>Approving a request creates the account, assigns the granted role, records the reviewer, and
+      issues a temporary credential that forces a password change on first login — closing the loop between
+      "who asked for access" and "who's accountable for granting it."</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/twinz-approval-modal.png" alt="Confirm Request Approval modal asking to approve access for a named applicant, showing their email, username, and the role being granted: Technician." loading="lazy">
+      <div class="shot-caption"><span>Admin Approval</span><span>Role granted on approval</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/twinz-password-change.png" alt="Set New Password page shown on first login, requiring the temporary password and a new password before the user can access their facility dashboard." loading="lazy">
+      <div class="shot-caption"><span>Forced Password Reset</span><span>First-login requirement</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section reveal">
+  <hr class="rule" style="margin-top:44px;">
+  <div class="eyebrow" style="margin-top:44px;">The 3D Digital Twin</div>
+  <h2 style="margin-top:8px;">From IFC file to something you can walk through</h2>
+  <p class="lede" style="margin-top:14px;">Once imported, the model isn't just stored — it's rendered live
+  in the browser, with every element traceable back to real operational data.</p>
+
+  <div class="shot-full" style="margin-top:32px;">
+    <div class="shot">
+      <img src="assets/twinz-bim-viewer.png" alt="Twinz BIM Viewer showing a full 3D building model with selection controls for Spaces and Assets, an IoT Devices toggle, a system filter, and an element inspector panel." loading="lazy">
+      <div class="shot-caption"><span>BIM Viewer</span><span>That Open Engine + Three.js runtime</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Navigation</div>
+      <h3>Floors named the way the model named them</h3>
+      <p>The architecture-level panel lists floors pulled directly from the IFC hierarchy — "Roof Floor
+      Level_TOC," "Third Floor Finish Level" — each flagged as an exact match, so navigating the twin means
+      navigating the same levels the architects actually modeled.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Inspection</div>
+      <h3>Click a wall, get its COBie data</h3>
+      <p>Selecting any element opens an inspector with its class, floor, space, system, and full COBie
+      property set — area, space code, manufacturer, model — plus a direct action to link it to an
+      operational CAFM asset when it isn't linked yet.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/twinz-levels.png" alt="Architecture Levels panel listing building floors extracted from the IFC model, including Roof Floor Level TOC, Third Floor Finish Level, and Second Floor Finish Level, each marked as an exact match." loading="lazy">
+      <div class="shot-caption"><span>Architecture Levels</span><span>Extracted from IFC, not hand-typed</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/twinz-element-inspector.png" alt="Element inspector panel showing COBie key properties for a selected space, including Area, Space_Code, and SpaceCode, with a Link CAFM asset button." loading="lazy">
+      <div class="shot-caption"><span>Element Inspector</span><span>COBie properties, link to asset</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">The Payoff</div>
+      <h3>IoT devices, rendered where they actually are</h3>
+      <p>Toggle IoT Devices on and sensors appear as live markers in the 3D space itself. Selecting one
+      surfaces its real-time reading, status, and bound space directly in the viewer — this is the moment
+      the "digital twin" claim stops being a slide and starts being a screen.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Grounded in the Real Building</div>
+      <h3>What the model is standing in for</h3>
+      <p>The renders below are from the same design — the atrium and a library floor — a reminder that
+      every element in the viewer maps to an actual designed space, not an abstract test box.</p>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-iot-3d-popup.png" alt="3D BIM viewer with a live IoT device popup showing a CO2 and Air Quality sensor with device ID, current reading of 1256 PPM, status Active and Online, and its bound space." loading="lazy">
+      <div class="shot-caption"><span>Live IoT Marker in 3D</span><span>Real sensor reading, real location</span></div>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/twinz-render-atrium.jpg" alt="Architectural render of a multi-story building atrium with glass curtain walls, seating, and a reflecting pool." loading="lazy">
+      <div class="shot-caption"><span>Design Render — Atrium</span><span>The space behind the geometry</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/twinz-render-library.jpg" alt="Architectural render of a library floor with workstations, bookshelves, and a reception desk." loading="lazy">
+      <div class="shot-caption"><span>Design Render — Library Floor</span><span>The space behind the geometry</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section reveal">
+  <hr class="rule" style="margin-top:44px;">
+  <div class="eyebrow" style="margin-top:44px;">Operational CAFM</div>
+  <h2 style="margin-top:8px;">Where the twin meets day-to-day work</h2>
+  <p class="lede" style="margin-top:14px;">The viewer is the centerpiece, but the operational modules are
+  where a digital twin has to prove it's useful, not just impressive.</p>
+
+  <div class="shot-full" style="margin-top:32px;">
+    <div class="shot">
+      <img src="assets/twinz-dashboard.png" alt="Admin dashboard with counters for active alarms, IoT devices, total work orders, critical work orders, and donut charts for assets status, IoT devices by type, and work orders by priority." loading="lazy">
+      <div class="shot-caption"><span>Admin Dashboard</span><span>Operations, IoT, and alarms in one view</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Work Orders</div>
+      <h3>Cascading location, not a flat form</h3>
+      <p>Creating a manual work order filters spaces by floor and assets by space — a real hierarchy
+      instead of three unrelated dropdowns — then tracks status, due date, estimated hours, and
+      documentation links against a rich underlying model with concurrency protection and full audit
+      timestamps.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Alarms</div>
+      <h3>Threshold breaches with a live stream badge</h3>
+      <p>The Alarm Management Center reads "LIVE SIGNALR STREAM ACTIVE" for a reason — active and
+      acknowledged alarms show the reading against its limit, the triggering device, and the bound space,
+      so triage starts from the actual number that tripped it.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/twinz-workorder-modal.png" alt="Create Manual Work Order modal with a cascading floor, space, and asset selector, status, due date, estimated hours, notes, and documentation link fields." loading="lazy">
+      <div class="shot-caption"><span>Create Work Order</span><span>Cascading floor → space → asset</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/twinz-workorders-table.png" alt="Work orders table with open, in-progress, critical, and pending-review counts, and rows showing work order codes, titles, priorities, locations, assignees, statuses, and due dates." loading="lazy">
+      <div class="shot-caption"><span>Work Orders</span><span>Codes, priority, assignment, status</span></div>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-alarms.png" alt="Alarm Management Center with active, acknowledged, and resolved alarm counts, and a queue showing CO2 air quality alarms with severity, reading versus limit, bound device and space, and status." loading="lazy">
+      <div class="shot-caption"><span>Alarm Management Center</span><span>Live threshold breach queue</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">IoT, With Real Hardware</div>
+      <h3>Not simulated data</h3>
+      <p>The IoT layer isn't a mocked feed — it's backed by an actual ESP32 breadboard prototype reading
+      CO2 and temperature, pushing telemetry the platform ingests and displays with live averages,
+      per-device stability status, and threshold configuration.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Being Honest About Scope</div>
+      <h3>What's solid versus what's foundation</h3>
+      <p>The registration chain, BIM import, 3D viewer, level navigation, and element inspection are the
+      strongest, most complete paths. Work-order automation, space/booking workflows, energy monitoring,
+      and AI governance have real data models and UI, but the full operational lifecycle behind them is
+      still being finished — the project documentation is explicit about this, and so am I.</p>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-iot-management.png" alt="IoT Device Management page with device type counts, connectivity status, stability status, live temperature and CO2 averages, filters, and an active devices table showing live readings and bound assets." loading="lazy">
+      <div class="shot-caption"><span>IoT Device Management</span><span>Live telemetry, thresholds, filters</span></div>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/twinz-iot-hardware.png" alt="Photograph of two ESP32-based IoT hardware prototypes on breadboards, wired with sensors and status LEDs, used to generate real CO2 and temperature telemetry for the platform." loading="lazy" style="max-height:420px; width:auto; margin:0 auto; display:block;">
+      <div class="shot-caption"><span>IoT Hardware Prototype</span><span>ESP32, real sensor telemetry</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div class="eyebrow" style="margin-top:40px;">By the Numbers</div>
+  <div class="grid-4" style="margin-top:20px;">
+    <div>
+      <h3 style="font-size:1.6rem; font-family:var(--font-display);">55</h3>
+      <p style="font-size:0.93rem;">C# domain model files</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem; font-family:var(--font-display);">7</h3>
+      <p style="font-size:0.93rem;">EF Core migrations</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem; font-family:var(--font-display);">34</h3>
+      <p style="font-size:0.93rem;">Backend &amp; frontend test files</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem; font-family:var(--font-display);">5</h3>
+      <p style="font-size:0.93rem;">Operational roles &amp; policies</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div style="padding-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+    <a href="projects.html" class="sheet-link">← All Projects</a>
+    <a href="project-attendance.html" class="sheet-link">Next: Attendance System →</a>
+  </div>
+</section>
+
+<div class="title-block">
+  <div class="title-block-inner">
+    <div>Project<span>Twinz — CAFM Digital Twin</span></div>
+    <div>Discipline<span>Facilities / BIM / IoT</span></div>
+    <div>Stack<span>ASP.NET Core 8 · Blazor · EF Core 8</span></div>
+   
+  </div>
+</div>
+<footer class="site-footer">
+  <span>© 2026 Asmaa Abo Elhana</span>
+  <span>asmaaaboelhana2@gmail.com</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

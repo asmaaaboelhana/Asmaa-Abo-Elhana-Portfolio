@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildCalc — Construction Material Manager | Asmaa Abo Elhana</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="brand">Asmaa Abo Elhana<small>AEC Software Engineer</small></a>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="wrap section-tight" style="padding-top:56px;">
+ 
+  <h1 style="font-size:clamp(2rem,4.6vw,3.6rem);">BuildCalculator</h1>
+  <p class="lede" style="margin-top:14px; font-size:1.05rem;">A desktop construction material manager —
+  the first program I ever shipped, and the one that convinced me estimating belonged in code, not spreadsheets.</p>
+  <div class="tag-row" style="margin-top:26px;">
+    <span class="tag">C#</span><span class="tag">WPF</span><span class="tag">Desktop</span>
+  </div>
+</header>
+
+<section class="wrap section reveal">
+  <hr class="rule">
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/buildcalc-home.png" alt="BuildCalc home screen showing an overview of materials in catalog, total orders, total spent this month, an add-new-material form, and a material catalog table with categories, units, and prices in EGP." loading="lazy">
+      <div class="shot-caption"><span>Home — Overview &amp; Catalog</span><span>WPF desktop app</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Catalog</div>
+      <h3>One price list, every material</h3>
+      <p>A material catalog holds 12 items across five categories — Concrete, Steel, Paint, Tiles, and General —
+      each with a unit and a price per unit in EGP. New materials can be added or removed from the home dashboard,
+      which also tracks total orders and total spend for the month at a glance.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Calculation</div>
+      <h3>Four calculators, one workflow</h3>
+      <p>Concrete, Steel, Paint, and Tiles each get a purpose-built calculator with the formula shown up front —
+      volume from length × width × depth, reinforcement weight from bar diameter and count, paint from
+      area and coverage rate, tiles from room area and tile size — each with its own waste allowance built in.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/buildcalc-concrete.png" alt="Concrete Volume Calculator with element type, length, width, depth, and quantity fields, computing base volume and order volume with 10% waste." loading="lazy">
+      <div class="shot-caption"><span>Concrete Volume</span><span>Length × Width × Depth × Qty</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/buildcalc-steel.png" alt="Steel Reinforcement Weight Calculator with bar diameter, bar length, and number of bars fields, computing total weight in kilograms and tons with 5% waste." loading="lazy">
+      <div class="shot-caption"><span>Steel Reinforcement</span><span>Diameter² / 162 × Length × Bars</span></div>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/buildcalc-paint.png" alt="Paint Quantity Calculator with surface type, number of coats, surface area, and coverage rate fields, computing paint required in liters." loading="lazy">
+      <div class="shot-caption"><span>Paint Quantity</span><span>(Area × Coats) / Coverage Rate</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/buildcalc-tiles.png" alt="Floor and Wall Tiles Calculator with room length, room width, tile size, and waste percentage fields, computing room area and tiles needed." loading="lazy">
+      <div class="shot-caption"><span>Tiles Needed</span><span>(Room Area / Tile Area) × (1 + Waste%)</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">From Calculation to Order</div>
+      <h3>Straight from quantity to purchase</h3>
+      <p>Every calculator feeds directly into a Create Purchase Order panel — pick the material, the calculated
+      quantity carries over, price per unit is pulled from the catalog, and total cost is computed before the
+      order is created. No re-typing numbers between a takeoff and a purchase order.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Tracking</div>
+      <h3>Orders, searchable and summarized</h3>
+      <p>An Orders view lets you search by material, filter by category, status, and date range, and see totals
+      for value, pending, and delivered orders at once. Orders can be marked delivered, deleted, or exported
+      as a summary — the paper trail a small site office actually needs.</p>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/buildcalc-orders.png" alt="Orders screen with search by material, category, status, and date range filters, an empty orders table, and summary totals for total value, pending, and delivered orders." loading="lazy">
+      <div class="shot-caption"><span>Orders</span><span>Search, filter, export summary</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div class="eyebrow" style="margin-top:40px;">Why it matters</div>
+  <p style="max-width:64ch; margin-top:14px; font-size:0.98rem;">
+    Before BuildCalc, I was estimating material quantities by hand, the way most site engineers do —
+    a formula on paper, a lookup in a price list, a manual order. Building this app was the first time
+    I turned that routine into software: real formulas an engineer would recognize, a real catalog with
+    real Egyptian market prices, and an order workflow that closes the loop instead of leaving numbers stranded
+    in a spreadsheet. It's a small tool, but it's the one that pointed me toward AEC software as a discipline.
+  </p>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div style="padding-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+    <a href="project-attendance.html" class="sheet-link">← Attendance System</a>
+    <a href="project-beauty.html" class="sheet-link">Next: HANONA →</a>
+  </div>
+</section>
+
+<div class="title-block">
+  <div class="title-block-inner">
+    <div>Project<span>BuildCalculator — Material Manager</span></div>
+    <div>Discipline<span>Estimating / Desktop</span></div>
+    <div>Stack<span>C# · WPF</span></div>
+    
+  </div>
+</div>
+<footer class="site-footer">
+  <span>© 2026 Asmaa Abo Elhana</span>
+  <span>asmaaaboelhana2@gmail.com</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

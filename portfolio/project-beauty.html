@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HANONA — Beauty & Cosmetics Catalogue | Asmaa Abo Elhana</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="brand">Asmaa Abo Elhana<small>AEC Software Engineer</small></a>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="wrap section-tight" style="padding-top:56px;">
+ 
+  <h1 style="font-size:clamp(2rem,4.6vw,3.6rem);">HANONA</h1>
+  <p class="lede" style="margin-top:14px; font-size:1.05rem;">A beauty and cosmetics catalogue prototype —
+  no framework, no backend, no build step. Just HTML, CSS, and vanilla JavaScript doing real work.</p>
+  <div class="tag-row" style="margin-top:26px;">
+    <span class="tag">HTML5</span><span class="tag">Vanilla JS (ES6+)</span>
+    <span class="tag">CSS3</span><span class="tag">localStorage / sessionStorage</span>
+  </div>
+</header>
+
+<section class="wrap section reveal">
+  <hr class="rule">
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/beauty-login.png" alt="HANONA login page in dark theme, with username and password fields, a sign-in button, and a link to create an account." loading="lazy">
+      <div class="shot-caption"><span>Sign In</span><span>Dark theme</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">No Framework, By Design</div>
+      <h3>Four pages, one shared script</h3>
+      <p>Register, Login, Products, and Info each live in their own folder as a plain HTML page with a
+      page-specific script. A single <span class="serif-em">Shared/utils.js</span> loads before every page
+      script and exposes validation, theme, and product helpers — plus the static
+      <span class="serif-em">productsData</span> array — to the global scope. No modules, no bundler, no
+      package manager: load order does the job a framework usually would.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Two Storage Layers</div>
+      <h3>Persistence without a database</h3>
+      <p>Registered accounts live in <span class="serif-em">localStorage</span> under
+      <span class="serif-em">HANONA_users</span>; the active session lives separately in
+      <span class="serif-em">sessionStorage</span> as <span class="serif-em">HANONA_currentUser</span>,
+      so closing the tab ends the session without deleting the account. A one-day cookie carries the
+      selected product between the catalogue and its detail page.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/beauty-register.png" alt="HANONA account creation form with full name, email, birthday, password, and confirm password fields." loading="lazy">
+      <div class="shot-caption"><span>Create Account</span><span>Client-side validation</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/beauty-products-dark.png" alt="HANONA product catalogue in dark theme, showing eight cosmetics products in a grid with names and More Info buttons." loading="lazy">
+      <div class="shot-caption"><span>Product Catalogue</span><span>Dark theme</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Registration</div>
+      <h3>Validation that actually blocks bad input</h3>
+      <p>The registration form checks name, email format, minimum age of 13 from date of birth, password
+      length, password confirmation, and duplicate email against existing accounts before a new user object
+      is appended to storage — all in plain JavaScript, no server round-trip.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Access Control</div>
+      <h3>Pages that check before they render</h3>
+      <p>Products and Info both check for a session user before rendering anything, redirecting
+      unauthenticated visitors straight to Login. It's a front-end-only gate — there's no server to enforce
+      it — but it shapes the real user flow: register, sign in, then browse.</p>
+    </div>
+  </div>
+
+  <div class="shot-pair">
+    <div class="shot">
+      <img src="assets/beauty-product-detail-dark.png" alt="Product detail page for a lipstick priced at $32.00, showing description, color, finish, size, ingredients, and skin type, with a Back to Products button, in dark theme." loading="lazy">
+      <div class="shot-caption"><span>Product Detail</span><span>Dark theme</span></div>
+    </div>
+    <div class="shot">
+      <img src="assets/beauty-products-light.png" alt="HANONA product catalogue in light theme, showing the same eight cosmetics products in a grid." loading="lazy">
+      <div class="shot-caption"><span>Product Catalogue</span><span>Light theme</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Product Detail</div>
+      <h3>Cookie first, URL second</h3>
+      <p>Choosing "More Info" saves the selected product in a cookie and navigates to
+      <span class="serif-em">Info.html?id=&lt;product-id&gt;</span>. The details page reads the cookie
+      first and falls back to the URL's <span class="serif-em">id</span> parameter — so a direct link
+      still works even without the cookie.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Theming</div>
+      <h3>A theme that survives navigation</h3>
+      <p>A floating toggle switches between <span class="serif-em">DarkMood.css</span> and
+      <span class="serif-em">LightMood.css</span>, persisting the choice in localStorage so it holds across
+      every page — login, registration, catalogue, and detail — without a flash of the wrong theme on load.</p>
+    </div>
+  </div>
+
+  <div class="shot-full">
+    <div class="shot">
+      <img src="assets/beauty-product-detail-light.png" alt="Product detail page for a mascara priced at $42.00, showing description, color, finish, size, ingredients, and skin type, in light theme." loading="lazy">
+      <div class="shot-caption"><span>Product Detail</span><span>Light theme</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:44px;">
+    <div>
+      <div class="eyebrow">Type &amp; Feel</div>
+      <h3>Editorial, not templated</h3>
+      <p>Playfair Display, Cormorant Garamond, and Jost from Google Fonts carry the beauty-editorial tone,
+      paired with glass-like cards, soft gradients, and CSS variables driving both themes from the same
+      markup — no per-page style duplication.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Built Honestly</div>
+      <h3>A prototype, not a storefront</h3>
+      <p>This is a front-end demonstration: passwords and user details sit in plaintext in browser storage,
+      the catalogue is static data, and there's no cart, backend, or database. A
+      <span class="serif-em">logout</span> helper exists in the shared script but isn't wired to a control
+      yet — the kind of honest, unfinished edge real projects have.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section-tight reveal">
+  <hr class="rule">
+  <div style="padding-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+    <a href="project-buildcalc.html" class="sheet-link">← BuildCalc</a>
+    <a href="projects.html" class="sheet-link">All Projects →</a>
+  </div>
+</section>
+
+<div class="title-block">
+  <div class="title-block-inner">
+    <div>Project<span>HANONA — Beauty Catalogue</span></div>
+    <div>Discipline<span>Frontend / Commerce</span></div>
+    <div>Stack<span>HTML5 · CSS3 · Vanilla JS</span></div>
+   
+  </div>
+</div>
+<footer class="site-footer">
+  <span>© 2026 Asmaa Abo Elhana</span>
+  <span>asmaaaboelhana2@gmail.com</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
