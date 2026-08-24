@@ -279,6 +279,7 @@ p{ color: var(--ink-soft); }
   .portrait-col{ order: -1; max-width: 240px; margin: 0 auto 8px; }
 }
 @media (max-width: 560px){
+  :root{ --sheet-margin:28px; }
   .wrap{ text-align:center; }
   .lede{
     margin-left:auto;
