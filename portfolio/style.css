@@ -277,18 +277,21 @@ p{ color: var(--ink-soft); }
 @media (max-width: 860px){
   .hero-grid{ grid-template-columns: 1fr; }
   .portrait-col{ order: -1; max-width: 240px; margin: 0 auto 8px; }
-<<<<<<< Updated upstream
-=======
 }
 @media (max-width: 560px){
-  .hero-grid > div:first-child{ text-align:center; }
-  .hero-grid > div:first-child .lede{
+  .wrap{ text-align:center; }
+  .lede{
     margin-left:auto;
     margin-right:auto;
   }
+  .eyebrow,
+  .tag-row,
+  .contact-strip{ justify-content:center; }
   .hero-grid > div:first-child > div[style]{ justify-content:center; }
-  .hero-grid > div:first-child .contact-strip{ justify-content:center; }
->>>>>>> Stashed changes
+  .wrap div[style*="justify-content:space-between"]{ justify-content:center !important; }
+  .title-block-inner div,
+  .site-footer{ text-align:center; }
+  .site-footer{ justify-content:center; }
 }
 
 .portrait-frame{
