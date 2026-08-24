@@ -277,6 +277,18 @@ p{ color: var(--ink-soft); }
 @media (max-width: 860px){
   .hero-grid{ grid-template-columns: 1fr; }
   .portrait-col{ order: -1; max-width: 240px; margin: 0 auto 8px; }
+<<<<<<< Updated upstream
+=======
+}
+@media (max-width: 560px){
+  .hero-grid > div:first-child{ text-align:center; }
+  .hero-grid > div:first-child .lede{
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .hero-grid > div:first-child > div[style]{ justify-content:center; }
+  .hero-grid > div:first-child .contact-strip{ justify-content:center; }
+>>>>>>> Stashed changes
 }
 
 .portrait-frame{
