@@ -24,7 +24,7 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
-  --sheet-margin: clamp(20px, 5vw, 64px);
+  --sheet-margin: clamp(24px, 7vw, 64px);
   --nav-h: 76px;
 
   --shadow-sm: 0 2px 8px -4px rgba(27,31,25,0.12);
@@ -296,7 +296,7 @@ p{ color: var(--ink-soft); }
   background: rgba(27,58,92,0.05);
   border: 1px solid var(--line-strong);
   border-radius: 3px;
-  padding: 5px 10px;
+  padding: 6px 12px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -410,7 +410,7 @@ p{ color: var(--ink-soft); }
 .shot-caption{
   display:flex; justify-content:space-between; align-items:baseline; flex-wrap: wrap;
   gap: 4px 12px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-top: 1px solid var(--line-strong);
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -453,5 +453,11 @@ p{ color: var(--ink-soft); }
 
 /* ---------------- Small-screen refinements ---------------- */
 @media (max-width: 560px){
+  :root{ --sheet-margin: 28px; }
+  h1{ letter-spacing: -0.005em; }
+  .lede{ line-height: 1.65; }
+  p{ line-height: 1.7; }
+}
+@media (max-width: 380px){
   :root{ --sheet-margin: 22px; }
 }
